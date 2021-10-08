@@ -1,0 +1,67 @@
+.fields_flex{
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+.fields_parent{
+    width: 100%;
+}
+.title{
+    background-color: #C5DCFA;
+    padding: 10px 0;
+    max-width: 80%;
+    margin: 0 auto;
+    margin-top: 50px;
+    font-weight: 700;
+    font-size: 21px;
+    font-family: 'Open Sans', sans-serif;
+}
+.text{
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 0 10px;
+    max-width: 80%;
+    font-weight: 400;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+}
+.fields_main{
+    display: flex;
+    max-width: 80%;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+.btn{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 auto;
+    margin-top: 30px;
+    font-weight: 400;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+}
+.btn button{
+    background-color: #C5DCFA;
+    display: flex;
+    align-items: center;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #0A3977;
+}
+.btn span{
+    color: #4b81e5;
+    font-size: 20px;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+@media (max-width: 1060px) {
+    .fields_main{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

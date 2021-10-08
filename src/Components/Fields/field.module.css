@@ -1,0 +1,21 @@
+.width_100{
+    width: 100%;
+}
+.text_left{
+    text-align: left;
+    font-weight: 400;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+}
+.mr_3{
+    margin-right: 20px;
+}
+.view{
+    color: #C7C7C7;
+}
+.view input{
+    border-radius: 10px;
+    border-color: #C7C7C7;
+    outline: none;
+    padding: 5px;
+}
