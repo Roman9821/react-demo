@@ -2,68 +2,54 @@ import './App.css';
 import Field from "./Components/Fields/Field";
 import axios from "axios";
 import style from './Components/form.module.css';
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {Multiselect} from "multiselect-react-dropdown";
+import 'react-toastify/dist/ReactToastify.css';
+import {toast, ToastContainer} from "react-toastify";
 
 function App() {
     const [name, setName] = useState('');
-    const [options, setOptions] = useState([
-        {
-            id: "61600b640e39be31f60ef6c3",
-            name: "#FF0000"
-        },
-        {
-            id: "61600b720e39be31f60ef6c4",
-            name: "#00FF00"
-        },
-        {
-            id: "61600b7c0e39be31f60ef6c5",
-            name: "#FFFF00"
-        },
-        {
-            id: "61600b920e39be31f60ef6c6",
-            name: "#000000"
-        },
-        {
-            id: "61600b9d0e39be31f60ef6c7",
-            name: "#FFFFFF"
-        }
-    ])
-    const [selectedValue, setSelectedValue] = useState('')
+    const [colors, setColors] = useState([]);
+    const [selectedColors, setSelectedColors] = useState([]);
 
-    let saveData = async () => {
+    useEffect(() => {
+        getColors()
+    }, [])
+
+    const saveData = async () => {
+        const requestColors = selectedColors.map(el => el.name);
         const data = {
             name,
-            selectedValue
+            color: requestColors,
         }
         try {
-            const res = await axios.post(`https://jsonplaceholder.typicode.com/users`, data);
-            if (res) {
-
-            }
+            const res = await axios.post(`http://localhost:4000/user`, data);
+             toast("Task is Done :)");
         } catch (e) {
             console.log(e)
         }
     }
 
-    let getColors = async () => {
-        const res = await axios.get(`https://jsonplaceholder.typicode.com/getColors`);
+    const getColors = async () => {
+        const res = await axios.get(`http://localhost:4000/color`);
+        let items = [];
         if (res) {
-            setOptions();
+            if (res.data.colors && res.data.colors.length) {
+                items = res.data.colors.map(el => {
+                    return {id: el._id, name: el.name}
+                })
+            }
+            setColors(items);
         }
     }
 
-    // getColors();
-
-    let Select = (selectedList, selectedItem) => {
-        setSelectedValue(selectedList)
+    const onChange = (selectedList) => {
+        setSelectedColors(selectedList)
     }
 
-    let onRemove = (selectedList, removedItem) => {
-        setSelectedValue(selectedList)
-    }
     return (
         <div className={`App`}>
+            <ToastContainer />
             <div className={`${style.fields_flex}`}>
                 <Field
                     label={'NAME'}
@@ -74,9 +60,9 @@ function App() {
                 <div>
                     <p className={style.text_left}>Colors</p>
                     <Multiselect
-                        options={options}
-                        onSelect={Select}
-                        onRemove={onRemove}
+                        options={colors}
+                        onSelect={onChange}
+                        onRemove={onChange}
                         displayValue="name"
                     />
                 </div>
